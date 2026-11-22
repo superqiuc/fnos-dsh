@@ -13,8 +13,8 @@
 # pre-set environment values (GOCACHE/GOPATH) still take precedence.
 
 ROOT      := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
-BACKEND   := $(ROOT)/backend
-FRONTEND  := $(ROOT)/frontend
+BACKEND   := $(ROOT)/src/backend
+FRONTEND  := $(ROOT)/src/frontend
 EMBED     := $(BACKEND)/embed
 OUT       := $(BACKEND)/harness
 

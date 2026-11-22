@@ -8,13 +8,13 @@
 # 与 build.sh / Makefile 的 TERMINAL=0 是同一条链路，只是把两个架构一次编完：
 #   - 前端 VITE_TERMINAL=0：TerminalView 被占位页顶替，xterm 与 xterm.css 不进包；
 #   - Go -tags noterminal：PTY 会话、/terminal WebSocket、/api/sessions*、
-#     快捷指令接口整体剔除（见 backend/terminal_disabled.go）。
+#     快捷指令接口整体剔除（见 src/backend/terminal_disabled.go）。
 # 两条链路都不依赖 cgo，因此固定 CGO_ENABLED=0 交叉编译。
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BACKEND="$ROOT/backend"
-FRONTEND="$ROOT/frontend"
+BACKEND="$ROOT/src/backend"
+FRONTEND="$ROOT/src/frontend"
 EMBED="$BACKEND/embed"
 OUT_DIR="${1:-$ROOT/dist}"
 VERSION="${VERSION:-1.0.0}"
@@ -42,7 +42,7 @@ if grep -rIl --include='*.js' --include='*.css' --include='*.html' 'xterm' "$FRO
   exit 1
 fi
 
-echo "==> Staging frontend dist into backend/embed..."
+echo "==> Staging frontend dist into src/backend/embed..."
 rm -rf "$EMBED"
 mkdir -p "$EMBED"
 cp -r "$FRONTEND"/dist/* "$EMBED"/

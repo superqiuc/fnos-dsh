@@ -46,17 +46,17 @@ rm -rf "$STAGE"
 mkdir -p "$STAGE/bin" "$STAGE/ui" "$STAGE/config" "$DIST"
 
 echo "==> 1/4 前端构建（Vue + Vite）"
-( cd "$ROOT/frontend" && "$NPM_BIN" ci --no-audit --no-fund && VITE_TERMINAL=1 "$NPM_BIN" run build )
+( cd "$ROOT/src/frontend" && "$NPM_BIN" ci --no-audit --no-fund && VITE_TERMINAL=1 "$NPM_BIN" run build )
 
 echo "==> 2/4 后端构建（Go，嵌入前端）"
-rm -rf "$ROOT/backend/embed"
-mkdir -p "$ROOT/backend/embed"
-cp -r "$ROOT/frontend/dist/." "$ROOT/backend/embed/"
-( cd "$ROOT/backend" && CGO_ENABLED=0 GOOS=linux GOARCH="$GOARCH" \
+rm -rf "$ROOT/src/backend/embed"
+mkdir -p "$ROOT/src/backend/embed"
+cp -r "$ROOT/src/frontend/dist/." "$ROOT/src/backend/embed/"
+( cd "$ROOT/src/backend" && CGO_ENABLED=0 GOOS=linux GOARCH="$GOARCH" \
     "$GO_BIN" build -trimpath -tags "" \
     -ldflags "-s -w -X main.harnessVersion=$VERSION" \
     -o "$STAGE/bin/harness" . )
-rm -rf "$ROOT/backend/embed"
+rm -rf "$ROOT/src/backend/embed"
 
 echo "==> 3/4 组装应用负载"
 cp -a "$ROOT/app/ui/." "$STAGE/ui/"

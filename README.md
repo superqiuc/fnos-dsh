@@ -75,8 +75,8 @@ make release V=2.1.2  # 裁剪版
 
 | 路径 | 说明 |
 | --- | --- |
-| `backend/` | Go 后端：Admin socket、反向代理、dsh 管理、鉴权、终端、备份 |
-| `frontend/` | Vue 3 + TypeScript 管理界面（Vite 构建后嵌入 Go 二进制） |
+| `src/backend/` | Go 后端：Admin socket、反向代理、dsh 管理、鉴权、终端、备份 |
+| `src/frontend/` | Vue 3 + TypeScript 管理界面（Vite 构建后嵌入 Go 二进制） |
 | `app/ui/` | fnOS 桌面入口配置与图标 |
 | `cmd/` | fnOS 生命周期脚本（install / upgrade / uninstall / main） |
 | `config/` | fnOS 权限与资源配置 |
